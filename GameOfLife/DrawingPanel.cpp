@@ -11,29 +11,30 @@ DrawingPanel::~DrawingPanel() {
 
 }
 void DrawingPanel::OnPaint(wxPaintEvent& event) {
-	wxPaintDC dc(this);
-	wxGraphicsContext* context = wxGraphicsContext::Create(dc);
-	context = wxGraphicsContext::Create(dc);
-	if (!context) {
+    wxPaintDC dc(this);
+    wxGraphicsContext* context = wxGraphicsContext::Create(dc);
 
-		context->SetPen(*wxBLACK_PEN);
-		wxBrush whiteBrush(*wxWHITE);
-		context->SetBrush(whiteBrush);
-		
-		int cellSize = 10;
-		int gridSize = 15;
+    if (context) {
+        context->SetPen(*wxBLACK_PEN);
+        wxBrush whiteBrush(*wxWHITE);
+        context->SetBrush(whiteBrush);
 
-		for (int i = 0; i < gridSize; ++i) {
-			for (int j = 0; j < gridSize; ++j) {
-				int x = j * cellSize;
-				int y = i * cellSize;
-				context ->DrawRectangle(x, y, cellSize, cellSize);
-			}
-		}
+        wxSize panelSize = GetSize();
+        int cellWidth = panelSize.GetWidth() / gridSize;
+        int cellHeight = panelSize.GetHeight() / gridSize;
 
-		delete context;
-	}
+        // Draw grid of rectangles
+        for (int i = 0; i < gridSize; ++i) {
+            for (int j = 0; j < gridSize; ++j) {
+                int x = j * cellWidth;
+                int y = i * cellHeight;
+                context->DrawRectangle(x, y, cellWidth, cellHeight);
+            }
+        }
 
-
-
+        delete context;
+    }
 }
+
+
+

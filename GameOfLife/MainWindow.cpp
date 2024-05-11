@@ -10,4 +10,6 @@ MainWindow::MainWindow()
 MainWindow::~MainWindow()
 {
 	delete drawingPanel;
-}
+};
+
+
