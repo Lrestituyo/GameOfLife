@@ -7,7 +7,7 @@ DrawingPanel::DrawingPanel(wxWindow* parent)
 }
 
 DrawingPanel::~DrawingPanel() {
-	delete context;
+
 
 }
 void DrawingPanel::OnPaint(wxPaintEvent& event) {
@@ -19,9 +19,19 @@ void DrawingPanel::OnPaint(wxPaintEvent& event) {
 		context->SetPen(*wxBLACK_PEN);
 		wxBrush whiteBrush(*wxWHITE);
 		context->SetBrush(whiteBrush);
-		context->DrawRectangle(10, 10, 60, 60);
+		
+		int cellSize = 10;
+		int gridSize = 15;
 
-		return;
+		for (int i = 0; i < gridSize; ++i) {
+			for (int j = 0; j < gridSize; ++j) {
+				int x = j * cellSize;
+				int y = i * cellSize;
+				context ->DrawRectangle(x, y, cellSize, cellSize);
+			}
+		}
+
+		delete context;
 	}
 
 

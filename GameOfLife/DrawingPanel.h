@@ -13,7 +13,7 @@ public:
 	void OnPaint(wxPaintEvent& event);
 
 private:
-	wxGraphicsContext* context;
+	int gridSize = 15;
 };
 
 #endif // !DRAWINGPANEL_H
