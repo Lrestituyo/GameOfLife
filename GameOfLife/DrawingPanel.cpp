@@ -2,10 +2,12 @@
 
 wxBEGIN_EVENT_TABLE(DrawingPanel, wxPanel)
 EVT_PAINT(DrawingPanel::OnPaint)
+EVT_LEFT_UP(DrawingPanel::OnMouseUp)
 wxEND_EVENT_TABLE()
 
 DrawingPanel::DrawingPanel(wxWindow* parent)
-    : wxPanel(parent), gridSize(15) {
+    : wxPanel(parent), gridSize(15), gameBoard(gameBoard)
+{
     this->SetBackgroundStyle(wxBG_STYLE_PAINT);
 }
 
@@ -52,6 +54,22 @@ void DrawingPanel::SetGridSize(int size)
     Refresh();
 }
 
+void DrawingPanel::OnMouseUp(wxMouseEvent& event) {
+    int mouseX = event.GetX();
+    int mouseY = event.GetY();
+
+    wxSize panelSize = GetSize();
+    int cellWidth = panelSize.GetWidth() / gridSize;
+    int cellHeight = panelSize.GetHeight() / gridSize;
+
+    int col = mouseX / cellWidth;
+    int row = mouseY / cellHeight;
+    
+    if (row >= 0 && row < gridSize && col >= 0 && col < gridSize) {
+        gameBoard[row][col] = !gameBoard[row][col];
+    }
+    Refresh();
+}
 
 
 
