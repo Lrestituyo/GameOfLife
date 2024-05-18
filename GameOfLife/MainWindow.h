@@ -14,6 +14,10 @@ public:
 
 private:
 	DrawingPanel* drawingPanel;
+	wxBoxSizer* boxSizer;
+	void OnSizeChange(wxSizeEvent& event);
+
+	wxDECLARE_EVENT_TABLE();
 	
 
 };
