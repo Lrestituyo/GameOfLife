@@ -9,7 +9,8 @@ public:
     DrawingPanel(wxWindow* parent);
     ~DrawingPanel();
     void OnPaint(wxPaintEvent& event);
-    void SetSize(const wxSize& size); // Method to set the size of the panel
+    void SetSize(const wxSize& size);
+    void SetGridSize(int size); // Method to set the grid size
 
 private:
     int gridSize;
@@ -17,4 +18,3 @@ private:
 };
 
 #endif
-

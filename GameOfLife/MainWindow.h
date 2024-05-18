@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <wx/wx.h>
+#include <vector>
 #include "DrawingPanel.h"
 
 
@@ -15,7 +16,11 @@ public:
 private:
 	DrawingPanel* drawingPanel;
 	wxBoxSizer* boxSizer;
+	std::vector<std::vector<bool>> gameBoard;
+	int gridSize;
+
 	void OnSizeChange(wxSizeEvent& event);
+	void InitializeGrid();
 
 	wxDECLARE_EVENT_TABLE();
 	

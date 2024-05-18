@@ -15,6 +15,7 @@ DrawingPanel::~DrawingPanel()
 
 void DrawingPanel::OnPaint(wxPaintEvent& event) {
     wxPaintDC dc(this);
+    dc.Clear();
     wxGraphicsContext* context = wxGraphicsContext::Create(dc);
 
     if (context) {
@@ -44,4 +45,13 @@ void DrawingPanel::SetSize(const wxSize& size) {
     wxPanel::SetSize(size); // Call the base class SetSize method
     Refresh(); // Refresh the panel to trigger OnPaint
 }
+
+void DrawingPanel::SetGridSize(int size)
+{
+    gridSize = size;
+    Refresh();
+}
+
+
+
 
