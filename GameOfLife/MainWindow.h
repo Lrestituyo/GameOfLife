@@ -10,7 +10,7 @@
 class MainWindow : public wxFrame {
 
 public:
-	MainWindow();
+	MainWindow(const wxString& title);
 	~MainWindow();
 
 private:

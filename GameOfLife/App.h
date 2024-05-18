@@ -10,8 +10,6 @@ private:
 	MainWindow* mainWindow;
 
 public:
-	App();
-	virtual ~App();
 	virtual bool OnInit();
 };
 

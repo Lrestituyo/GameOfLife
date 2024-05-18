@@ -2,17 +2,9 @@
 
 wxIMPLEMENT_APP(App);
 
-App::App() {
-
-}
-
-App::~App() {
-
-}
-
 bool App::OnInit() {
-	mainWindow = new MainWindow();
-	mainWindow->Show();
+	MainWindow* mainWindow = new MainWindow ("Game Of Life");
+	mainWindow->Show(true);
 
 
 	return true;

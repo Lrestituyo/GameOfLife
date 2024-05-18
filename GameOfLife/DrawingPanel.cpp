@@ -1,11 +1,13 @@
 #include "DrawingPanel.h"
+#include "wx/graphics.h"
+#include "wx/dcbuffer.h"
 
 wxBEGIN_EVENT_TABLE(DrawingPanel, wxPanel)
 EVT_PAINT(DrawingPanel::OnPaint)
 EVT_LEFT_UP(DrawingPanel::OnMouseUp)
 wxEND_EVENT_TABLE()
 
-DrawingPanel::DrawingPanel(wxWindow* parent)
+DrawingPanel::DrawingPanel(wxWindow* parent, std::vector<std::vector<bool>>& gameBoard)
     : wxPanel(parent), gridSize(15), gameBoard(gameBoard)
 {
     this->SetBackgroundStyle(wxBG_STYLE_PAINT);
@@ -16,7 +18,7 @@ DrawingPanel::~DrawingPanel()
 }
 
 void DrawingPanel::OnPaint(wxPaintEvent& event) {
-    wxPaintDC dc(this);
+   wxAutoBufferedPaintDC dc(this);
     dc.Clear();
     wxGraphicsContext* context = wxGraphicsContext::Create(dc);
 
@@ -35,6 +37,13 @@ void DrawingPanel::OnPaint(wxPaintEvent& event) {
             for (int j = 0; j < gridSize; ++j) {
                 int x = j * cellWidth;
                 int y = i * cellHeight;
+
+                if (gameBoard[i][j]) {
+                    context->SetBrush(*wxLIGHT_GREY_BRUSH);
+                }
+                else {
+                    context->SetBrush(*wxWHITE_BRUSH);
+                }
                 context->DrawRectangle(x, y, cellWidth, cellHeight);
             }
         }

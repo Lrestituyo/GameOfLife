@@ -4,9 +4,11 @@ wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
 EVT_SIZE(MainWindow::OnSizeChange)
 wxEND_EVENT_TABLE()
 
-MainWindow::MainWindow()
-    : wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 0), wxSize(400, 400)), gridSize(15) { // Initialize grid size
-    drawingPanel = new DrawingPanel(this);
+MainWindow::MainWindow(const wxString& title)
+    : wxFrame(nullptr, wxID_ANY, "Game of Life", wxPoint(0, 0), wxSize(400, 400)), gridSize(15), gameBoard(gridSize, std::vector<bool>(gridSize, false)) { 
+    
+    // Initialize grid size
+    drawingPanel = new DrawingPanel(this, gameBoard);
     boxSizer = new wxBoxSizer(wxVERTICAL);
 
     boxSizer->Add(drawingPanel, 1, wxEXPAND | wxALL, 0);
@@ -16,8 +18,7 @@ MainWindow::MainWindow()
 }
 
 MainWindow::~MainWindow() {
-    delete drawingPanel;
-    delete boxSizer;
+   
 }
 
 void MainWindow::OnSizeChange(wxSizeEvent& event) {
