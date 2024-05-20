@@ -18,9 +18,19 @@ private:
 	wxBoxSizer* boxSizer;
 	std::vector<std::vector<bool>> gameBoard;
 	int gridSize;
+	int generations;
+	int livingCells;
+	int GetLivingNeighborcount(int row, int col);
+	wxStatusBar* statusBar;
 
 	void OnSizeChange(wxSizeEvent& event);
 	void InitializeGrid();
+	void UpdateStatusBar();
+	void OnPlay(wxCommandEvent& event);
+	void OnPause(wxCommandEvent& event);
+	void OnNext(wxCommandEvent& event);
+	void OnClear(wxCommandEvent& event);
+	
 
 	wxDECLARE_EVENT_TABLE();
 	
