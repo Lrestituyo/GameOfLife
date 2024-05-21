@@ -3,7 +3,9 @@
 
 #include <wx/wx.h>
 #include <vector>
-#include "DrawingPanel.h"
+
+
+
 
 
 
@@ -14,15 +16,8 @@ public:
 	~MainWindow();
 
 private:
-	DrawingPanel* drawingPanel;
-	wxBoxSizer* boxSizer;
-	std::vector<std::vector<bool>> gameBoard;
-	int gridSize;
-	int generations;
-	int livingCells;
-	int GetLivingNeighborcount(int row, int col);
-	wxStatusBar* statusBar;
 
+	void OnTimer(wxTimerEvent& event);
 	void OnSizeChange(wxSizeEvent& event);
 	void InitializeGrid();
 	void UpdateStatusBar();
@@ -30,6 +25,22 @@ private:
 	void OnPause(wxCommandEvent& event);
 	void OnNext(wxCommandEvent& event);
 	void OnClear(wxCommandEvent& event);
+	void CalculateNextGeneration();
+
+
+    DrawingPanel* drawingPanel;
+	wxBoxSizer* boxSizer;
+	std::vector<std::vector<bool>> gameBoard;
+	int gridSize;
+	int generationCount;
+	int livingCells;
+	int GetLivingNeighborCount(int row, int col);
+	wxStatusBar* statusBar;
+
+	
+
+	wxTimer* timer;
+	int timerInterval;
 	
 
 	wxDECLARE_EVENT_TABLE();
