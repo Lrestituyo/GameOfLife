@@ -1,14 +1,11 @@
 #include "MainWindow.h"
-#include "DrawingPanel.h"
 #include "play.xpm"
 #include "pause.xpm"
 #include "next.xpm"
 #include "trash.xpm"
 #include <iostream>
 
-
 wxBEGIN_EVENT_TABLE(MainWindow, wxFrame)
-EVT_SIZE(MainWindow::OnSizeChange)
 EVT_MENU(10001, MainWindow::OnPlay)
 EVT_MENU(10002, MainWindow::OnPause)
 EVT_MENU(10003, MainWindow::OnNext)
@@ -94,61 +91,6 @@ void MainWindow::OnSizeChange(wxSizeEvent& event) {
     event.Skip();
 }
 
-void MainWindow::InitializeGrid() {
-    gameBoard.resize(gridSize); // Resize the outer vector
-    for (int i = 0; i < gridSize; ++i) {
-        gameBoard[i].resize(gridSize, false); // Resize each inner vector and initialize cells to false (dead)
-    }
-    drawingPanel->SetGridSize(gridSize); // Set the grid size in the drawing panel
-}
-
-void MainWindow::UpdateStatusBar()
-{
-    wxString statusText;
-    statusText.Printf("Generations: %d Living Cells: %d", generationCount, livingCells);
-    statusBar->SetStatusText(statusText);
-}
-
-void MainWindow::OnPlay(wxCommandEvent& event)
-{
-    std::cout << "Timer started with interval " << std::endl;
-    if (!timer->IsRunning()) {
-        timer->Start(timerInterval);
-        std::cout << "Timer started with interval " << timerInterval << "ms" << std::endl;
-    }
-    else {
-        std::cout << "Timer already running" << std::endl;
-    }
-}
-
-void MainWindow::OnPause(wxCommandEvent& event)
-{
-    std::cout << "Pause button clicked " << std::endl;
-    if (!timer->IsRunning()) {
-        timer->Stop();
-        std::cout << "Timer stopped " << std::endl;
-    }
-    else {
-        std::cout << "Timer is not running" << std::endl;
-    }
-}
-
-void MainWindow::OnNext(wxCommandEvent& event)
-{
-    std::cout << "Next button clicked" << std::endl;
-    CalculateNextGeneration();
-}
-
-void MainWindow::OnClear(wxCommandEvent& event)
-{
-    std::cout << "clear button clicked" << std::endl;
-    for (int row = 0; row < gridSize; ++row) {
-        for (int col = 0; col < gridSize; ++col) {
-            gameBoard[row][col] = false;
-        }
-    }
-    
-    generationCount = 0;
     livingCells = 0;
     
     UpdateStatusBar();
@@ -189,8 +131,5 @@ void MainWindow::CalculateNextGeneration()
     ++generationCount;
     UpdateStatusBar();
     drawingPanel->Refresh();
-
-
-    
 }
 
